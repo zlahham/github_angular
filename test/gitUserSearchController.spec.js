@@ -16,11 +16,16 @@ describe('GitUserSearchController', function() {
     beforeEach(inject(function($httpBackend) {
       httpBackend = $httpBackend;
       httpBackend
-        .when("GET", "https://api.github.com/search/users?access_token=" + accessToken + "&q=ojlamb" )
+        .expectGET("https://api.github.com/search/users?access_token=" + accessToken + "&q=ojlamb" )
         .respond(
           { items: items }
         );
     }));
+
+    afterEach(function() {
+      httpBackend.verifyNoOutstandingExpectation();
+      httpBackend.verifyNoOutstandingRequest();
+    });
 
     var items = [
       {
