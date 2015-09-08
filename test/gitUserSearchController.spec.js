@@ -16,7 +16,7 @@ describe('GitUserSearchController', function() {
     beforeEach(inject(function($httpBackend) {
       httpBackend = $httpBackend;
       httpBackend
-        .expectGET("https://api.github.com/search/users?access_token=" + accessToken + "&q=ojlamb" )
+        .expectGET("https://api.github.com/search/users?access_token=" + accessToken + "&q=hello" )
         .respond(
           { items: items }
         );
@@ -41,7 +41,7 @@ describe('GitUserSearchController', function() {
     ];
 
     it('displays search results', function() {
-      ctrl.searchTerm = 'ojlamb';
+      ctrl.searchTerm = 'hello';
       ctrl.doSearch();
       httpBackend.flush();
       expect(ctrl.searchResult.items).toEqual(items);
