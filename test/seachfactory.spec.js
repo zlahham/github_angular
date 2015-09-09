@@ -9,11 +9,11 @@ describe('factory: Search', function() {
   }));
 
   beforeEach(inject(function($httpBackend) {
-    httpBackend = $httpBackend
+    httpBackend = $httpBackend;
     httpBackend
       .when("GET", "https://api.github.com/search/users?access_token=" + accessToken + "&q=hello")
       .respond(
-        items
+        { items: items }
       );
   }));
 
@@ -37,9 +37,8 @@ describe('factory: Search', function() {
   it('returns search results', function() {
     search.query('hello')
       .then(function(response) {
-        expect(response.data).toEqual(items)
-      })
+        expect(response.data.items).toEqual(items);
+      });
     httpBackend.flush();
-  })
-
+  });
 });
